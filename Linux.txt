@@ -1,0 +1,323 @@
+### SpringBoot在服务器打包、启动、停止、查看日志
+
+- 打包
+
+```
+<build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <executable>true</executable>
+                </configuration>
+            </plugin>
+        </plugins>
+</build>
+需要上线的模块pom.xml添加配置
+    
+
+将基础包package、install。把要上线的模块package，拿到jar包放在webapps目录下。
+```
+
+- Xshell窗口关闭,JAR停止运行
+
+```
+java -jar xxx.jar &
+```
+
+- 一直运行
+
+```
+nohup java -jar xxx.jar  > consoleMsg.log 2>&1 &
+```
+
+- 停止
+
+```
+ps -ef|grep java
+```
+
+- consoleMsg.log文件要先创建,执行命令
+
+```
+touch consoleMsg.log
+```
+
+- 实时跟踪日志
+
+```
+tailf consoleMsg.log | grep --line-buffered findUserList  
+```
+
+- 打印最后500行日志，并且持续跟踪日志
+
+```
+tailf -n 500 consoleMsg.log 
+```
+
+- 分页查看最后2000行日志
+
+```
+tail -n 2000 consoleMsg.log | more
+```
+
+
+
+### Docker（Centos7）
+
+- 删除容器
+
+```
+docker rm containerId
+```
+
+- 启动
+
+```
+systemctl start docker
+```
+
+- 关闭
+
+```
+systemctl stop docker
+```
+
+- 重启
+
+```
+systemctl restart docker
+```
+
+- 启动容器
+
+```
+docker start containerId
+```
+
+- 关闭容器
+
+```
+docker stop containerId
+```
+
+- 查看所有容器
+
+```
+docker ps
+```
+
+- 查看所有正在运行容器
+
+```
+docker ps -a
+```
+
+- 查看容器映射端口
+
+```
+docker port containerId
+```
+
+- 进入容器命令
+
+```
+docker exec -it containerId /bin/bash
+```
+
+
+
+### Firewall
+
+- 查看防火墙状态
+
+```
+systemctl status firewalld
+```
+
+- 设置防火墙开机自启
+
+```
+systemctl enable firewalld
+```
+
+- 开启防火墙
+
+```
+systemctl start firewalld.service
+```
+
+- 关闭防火墙
+
+```
+systemctl stop firewalld
+```
+
+- 重启防火墙
+
+```
+firewall-cmd --reload
+```
+
+
+
+- 开启端口
+
+```
+firewall-cmd --zone=public --add-port=80/tcp --permanent
+```
+
+- 关闭端口
+
+```
+firewall-cmd --zone=public --remove-port=80/tcp --permanent
+```
+
+- 批量添加区间端口
+
+```
+firewall-cmd --zone=public --add-port=4400-4600/udp --permanent
+```
+
+- 查看指定端口是否开启
+
+```
+firewall-cmd --query-port=20882/tcp
+```
+
+- 查看当前所有已开放端口
+
+```
+firewall-cmd --permanent --list-port
+```
+
+
+
+
+
+
+
+### Git
+
+```
+如果是对所有文件都取消跟踪的话，就是
+
+git rm -r --cached . 　//不删除本地文件
+
+git rm -r --f . 　//删除本地文件
+
+ 
+
+对某个文件取消跟踪
+
+git rm --cached readme1.txt  删除readme1.txt的跟踪，并保留在本地。
+
+git rm --f readme1.txt  删除readme1.txt的跟踪，并且删除本地文件。
+
+ 
+
+然后git commit 即可。但是git status查看状态时还是会列出来
+
+ 
+
+每次使用git status 查看状态时总是会列出被跟踪的文件，可以通过 .gitignore文件来达到目的
+
+在git init 的目录下建立.gitignore文件，git官方提供的有 该文件，可以加以修改使用
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+启动容器
+
+docker  start containerId
+
+关闭容器
+
+docker stop containerId
+
+查看所有容器
+
+docker ps
+
+查看所有已启动容器
+
+docker ps -a
